@@ -4,12 +4,45 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiAppTest"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"
-    Shell.BackgroundColor="#232F34" >
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutHeaderBehavior="Fixed"
+    FlyoutVerticalScrollMode="Auto"      
+    Shell.BackgroundColor="#252525" >
 
-    <ShellContent        
+    <FlyoutItem Title="Home">
+        <ShellContent ContentTemplate="{DataTemplate local:Dashboard}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Settings">
+        <ShellContent ContentTemplate="{DataTemplate local:Dashboard}"/>
+    </FlyoutItem>
+    
+    
+<!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Dashboard"
+                        Icon="cat.png"
+                        ContentTemplate="{DataTemplate local:Dashboard}" />
+        <Tab>
+            <ShellContent Title="Dogs"
+                        Icon="dog.png"
+                        ContentTemplate="{DataTemplate local:LoginPage}" />
+            
+        </Tab>
+        <ShellContent Title="Monkeys"
+                      Icon="monkey.png"
+                      ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Title="Elephants"
+                      Icon="elephant.png"
+                      ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Title="Bears"
+                      Icon="bear.png"
+                      ContentTemplate="{DataTemplate local:LoginPage}" />
+
+
+    </FlyoutItem>-->
+    
+    
+    <!--<ShellContent        
         ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage" />
+        Route="LoginPage"/>-->
 
 </Shell>
