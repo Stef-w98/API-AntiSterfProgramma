@@ -11,9 +11,9 @@ namespace ProductivityAPI.Model
         public int SaturationId { get; set; }
 
         //UserID
-        public int Id { get; set; }
-        [ForeignKey("Id")]
-        public User UserId { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User UserID { get; set; }
 
         //Saturation
         public double SaturationO2 { get; set; }

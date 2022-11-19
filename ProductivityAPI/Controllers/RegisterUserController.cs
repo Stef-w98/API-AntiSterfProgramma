@@ -28,7 +28,7 @@ namespace ProductivityAPI.Controllers
 
                 _Db.Users.Add(u);
                 _Db.SaveChanges();
-                return u.Id;
+                return u.UserId;
 
             }
             return 0;

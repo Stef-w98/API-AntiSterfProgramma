@@ -11,9 +11,10 @@ namespace ProductivityAPI.Model
         public int TemperatureId { get; set; }
 
         //UserID
-        public int Id { get; set; }
-        [ForeignKey("Id")]
-        public User UserId { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User user { get; set; }
+
 
         //Temp
         [Required]

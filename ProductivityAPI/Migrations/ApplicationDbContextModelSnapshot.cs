@@ -39,15 +39,15 @@ namespace ProductivityAPI.Migrations
                     b.Property<double>("DiastolicPressure")
                         .HasColumnType("float");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<double>("SystolicPressure")
                         .HasColumnType("float");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("BloodPressureId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("BloodPressures");
                 });
@@ -59,9 +59,6 @@ namespace ProductivityAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicationId"), 1L, 1);
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("MedicationName")
                         .IsRequired()
@@ -75,9 +72,12 @@ namespace ProductivityAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("MedicationId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Medications");
                 });
@@ -90,9 +90,6 @@ namespace ProductivityAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaturationId"), 1L, 1);
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("SMeasurementDateTime")
                         .HasColumnType("datetime2");
 
@@ -102,9 +99,12 @@ namespace ProductivityAPI.Migrations
                     b.Property<double>("SaturationO2")
                         .HasColumnType("float");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("SaturationId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Saturations");
                 });
@@ -117,9 +117,6 @@ namespace ProductivityAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TemperatureId"), 1L, 1);
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("TMeasurementDateTime")
                         .HasColumnType("datetime2");
 
@@ -129,20 +126,23 @@ namespace ProductivityAPI.Migrations
                     b.Property<double>("TemperatureParameter")
                         .HasColumnType("float");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("TemperatureId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Temperatures");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -164,7 +164,7 @@ namespace ProductivityAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
@@ -177,7 +177,7 @@ namespace ProductivityAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WeightId"), 1L, 1);
 
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WMeasurementDateTime")
@@ -191,64 +191,64 @@ namespace ProductivityAPI.Migrations
 
                     b.HasKey("WeightId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Weights");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.BloodPressure", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserId")
+                    b.HasOne("ProductivityAPI.Model.User", "UserID")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserId");
+                    b.Navigation("UserID");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Medications", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserId")
+                    b.HasOne("ProductivityAPI.Model.User", "UserID")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserId");
+                    b.Navigation("UserID");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Saturation", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserId")
+                    b.HasOne("ProductivityAPI.Model.User", "UserID")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserId");
+                    b.Navigation("UserID");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Temperature", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserId")
+                    b.HasOne("ProductivityAPI.Model.User", "UserID")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserId");
+                    b.Navigation("UserID");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Weight", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserId")
+                    b.HasOne("ProductivityAPI.Model.User", "user")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserId");
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

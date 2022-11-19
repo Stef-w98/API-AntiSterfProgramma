@@ -9,8 +9,8 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://192.168.0.145:7175/;http://192.168.0.145:5175", //Own Home
-      //"applicationUrl": "http://192.168.126.44:7175/;http://192.168.126.44:5175"
       //"applicationUrl": "http://192.168.0.254:7175/;http://192.168.0.254:5175" //gf home
+      //"applicationUrl": "http://192.168.126.44:7175/;http://192.168.126.44:5175"
       //"applicationUrl": "http://192.168.0.145:7175/;http://192.168.0.145:5175" //Own Home
 
     },

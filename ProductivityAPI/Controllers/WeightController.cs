@@ -21,11 +21,12 @@ namespace ProductivityAPI.Controllers
 
         [HttpGet]
 
-        public Weight GetWeight()
+        public ActionResult<Weight[]> GetWeight(int id)
         {
-            Weight weight = _Db.Weights.FirstOrDefault(x => x.Id == 2);
+            Weight[] weight = _Db.Weights.Where(x => x.UserId == id).ToArray();
             return weight;
         }
+
         //public Weight[] GetWeight()
         //{
         //    Weight[] weights = _Db.Weights.Where(x => x.Id == 1).ToArray();
