@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Net;
 
 namespace ProductivityAPI.Controllers
 {
@@ -21,7 +22,7 @@ namespace ProductivityAPI.Controllers
 
         [HttpGet]
 
-        public ActionResult<Temperature[]> GetWeight(int id)
+        public ActionResult<Temperature[]> GetTemps(int id)
         {
             Temperature[] temps = _Db.Temperatures.Where(x => x.UserId == id).ToArray();
             return temps;
@@ -29,7 +30,7 @@ namespace ProductivityAPI.Controllers
 
         
         [HttpPost]
-        public int PostRegisterUser(Object TempData)
+        public int PostTemps(Object TempData)
         {
             if (TempData != null)
             {
@@ -42,6 +43,16 @@ namespace ProductivityAPI.Controllers
 
             }
             return 0;
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteTemps(int id) 
+        {
+            var temps = _Db.Temperatures.OrderBy(t => t.TemperatureId).LastOrDefault(u => u.UserId == id);
+            _Db.Temperatures.Remove(temps);            
+            _Db.SaveChanges();
+            
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
     }
