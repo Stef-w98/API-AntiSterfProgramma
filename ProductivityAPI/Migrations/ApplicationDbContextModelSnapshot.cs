@@ -33,7 +33,7 @@ namespace ProductivityAPI.Migrations
                     b.Property<DateTime>("BMeasurementDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("BNotificationTime")
+                    b.Property<DateTime?>("BNotificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("DiastolicPressure")
@@ -65,7 +65,6 @@ namespace ProductivityAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MedicationUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MedicationUse")
@@ -82,6 +81,35 @@ namespace ProductivityAPI.Migrations
                     b.ToTable("Medications");
                 });
 
+            modelBuilder.Entity("ProductivityAPI.Model.Notification", b =>
+                {
+                    b.Property<int>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NotificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NotificationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("ProductivityAPI.Model.Saturation", b =>
                 {
                     b.Property<int>("SaturationId")
@@ -93,7 +121,7 @@ namespace ProductivityAPI.Migrations
                     b.Property<DateTime>("SMeasurementDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("SNotificationTime")
+                    b.Property<DateTime?>("SNotificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("SaturationO2")
@@ -120,7 +148,7 @@ namespace ProductivityAPI.Migrations
                     b.Property<DateTime>("TMeasurementDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("TNotificationTime")
+                    b.Property<DateTime?>("TNotificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("TemperatureParameter")
@@ -183,7 +211,7 @@ namespace ProductivityAPI.Migrations
                     b.Property<DateTime>("WMeasurementDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("WNotificationTime")
+                    b.Property<DateTime?>("WNotificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("WeightKg")
@@ -198,46 +226,57 @@ namespace ProductivityAPI.Migrations
 
             modelBuilder.Entity("ProductivityAPI.Model.BloodPressure", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserID")
+                    b.HasOne("ProductivityAPI.Model.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserID");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Medications", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserID")
+                    b.HasOne("ProductivityAPI.Model.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserID");
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("ProductivityAPI.Model.Notification", b =>
+                {
+                    b.HasOne("ProductivityAPI.Model.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Saturation", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserID")
+                    b.HasOne("ProductivityAPI.Model.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserID");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Temperature", b =>
                 {
-                    b.HasOne("ProductivityAPI.Model.User", "UserID")
+                    b.HasOne("ProductivityAPI.Model.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserID");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProductivityAPI.Model.Weight", b =>

@@ -16,5 +16,6 @@ namespace ProductivityAPI.Data
         public DbSet<Medications> Medications { get; set; }
         public DbSet<Saturation> Saturations { get; set; }
         public DbSet<Temperature> Temperatures { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

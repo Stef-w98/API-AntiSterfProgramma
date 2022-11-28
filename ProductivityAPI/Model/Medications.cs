@@ -13,7 +13,7 @@ namespace ProductivityAPI.Model
         //UserID
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User UserID { get; set; }
+        public User user { get; set; }
 
 
         //Medication Name
@@ -25,6 +25,6 @@ namespace ProductivityAPI.Model
         public string MedicationUse { get; set; }
 
         //Afbeelding URL
-        public string MedicationUrl { get; set; }
+        public string? MedicationUrl { get; set; }
     }
 }

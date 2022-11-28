@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductivityAPI.Migrations
 {
-    public partial class FullDB : Migration
+    public partial class fullDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace ProductivityAPI.Migrations
                     SystolicPressure = table.Column<double>(type: "float", nullable: false),
                     DiastolicPressure = table.Column<double>(type: "float", nullable: false),
                     BMeasurementDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    BNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,13 +58,35 @@ namespace ProductivityAPI.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     MedicationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MedicationUse = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MedicationUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MedicationUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medications", x => x.MedicationId);
                     table.ForeignKey(
                         name: "FK_Medications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    NotificationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NotificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.NotificationId);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -80,7 +102,7 @@ namespace ProductivityAPI.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     SaturationO2 = table.Column<double>(type: "float", nullable: false),
                     SMeasurementDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,7 +124,7 @@ namespace ProductivityAPI.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     TemperatureParameter = table.Column<double>(type: "float", nullable: false),
                     TMeasurementDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    TNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,7 +146,7 @@ namespace ProductivityAPI.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     WeightKg = table.Column<double>(type: "float", nullable: false),
                     WMeasurementDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    WNotificationTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,6 +167,11 @@ namespace ProductivityAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Medications_UserId",
                 table: "Medications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -170,6 +197,9 @@ namespace ProductivityAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Medications");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "Saturations");

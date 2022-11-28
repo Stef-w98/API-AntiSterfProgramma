@@ -24,7 +24,7 @@ namespace ProductivityAPI.Model
         public DateTime WMeasurementDateTime { get; set; }
 
         //NotificationTime
-        public DateTime WNotificationTime { get; set; }
+        public DateTime? WNotificationTime { get; set; }
 
     }
 }

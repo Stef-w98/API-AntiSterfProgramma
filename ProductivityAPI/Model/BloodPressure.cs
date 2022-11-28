@@ -13,7 +13,7 @@ namespace ProductivityAPI.Model
         //UserID
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User UserID { get; set; }
+        public User user { get; set; }
 
         //Upper pressure
         [Required]
@@ -27,6 +27,6 @@ namespace ProductivityAPI.Model
         public DateTime BMeasurementDateTime { get; set; }
 
         //NotificationTime
-        public DateTime BNotificationTime { get; set; }
+        public DateTime? BNotificationTime { get; set; }
     }
 }

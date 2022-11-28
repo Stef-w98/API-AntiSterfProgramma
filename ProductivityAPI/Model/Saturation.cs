@@ -13,7 +13,7 @@ namespace ProductivityAPI.Model
         //UserID
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User UserID { get; set; }
+        public User user { get; set; }
 
         //Saturation
         public double SaturationO2 { get; set; }
@@ -22,6 +22,6 @@ namespace ProductivityAPI.Model
         public DateTime SMeasurementDateTime { get; set; }
 
         //NotificationTime
-        public DateTime SNotificationTime { get; set; }
+        public DateTime? SNotificationTime { get; set; }
     }
 }
