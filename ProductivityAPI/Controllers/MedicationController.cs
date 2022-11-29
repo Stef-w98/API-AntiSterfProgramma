@@ -28,22 +28,22 @@ namespace ProductivityAPI.Controllers
             return medications;
         }
 
-        
-        //[HttpPost]
-        //public int PostTemps(Object TempData)
-        //{
-        //    if (TempData != null)
-        //    {
-        //        JsonElement element = (JsonElement)TempData;
-        //        Temperature t = JsonConvert.DeserializeObject<Temperature>(element.GetRawText());
 
-        //        _Db.Temperatures.Add(t);
-        //        _Db.SaveChanges();
-        //        return t.UserId;
+        [HttpPost]
+        public int PostMedication(Object MedData)
+        {
+            if (MedData != null)
+            {
+                JsonElement element = (JsonElement)MedData;
+                Medications m = JsonConvert.DeserializeObject<Medications>(element.GetRawText());
 
-        //    }
-        //    return 0;
-        //}
+                _Db.Medications.Add(m);
+                _Db.SaveChanges();
+                return m.UserId;
+
+            }
+            return 0;
+        }
 
         //[HttpDelete]
         //public HttpResponseMessage DeleteTemps(int id) 
@@ -51,7 +51,7 @@ namespace ProductivityAPI.Controllers
         //    var temps = _Db.Temperatures.OrderBy(t => t.TemperatureId).LastOrDefault(u => u.UserId == id);
         //    _Db.Temperatures.Remove(temps);            
         //    _Db.SaveChanges();
-            
+
         //    return new HttpResponseMessage(HttpStatusCode.OK);
         //}
 

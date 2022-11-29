@@ -27,6 +27,22 @@ namespace ProductivityAPI.Controllers
             return weight;
         }
 
+        [HttpPost]
+        public int PostWeight(Object WeightData)
+        {
+            if (WeightData != null)
+            {
+                JsonElement element = (JsonElement)WeightData;
+                Weight w = JsonConvert.DeserializeObject<Weight>(element.GetRawText());
+
+                _Db.Weights.Add(w);
+                _Db.SaveChanges();
+                return w.UserId;
+
+            }
+            return 0;
+        }
+
         //public Weight[] GetWeight()
         //{
         //    Weight[] weights = _Db.Weights.Where(x => x.Id == 1).ToArray();
