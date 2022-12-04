@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Net;
 
 namespace ProductivityAPI.Controllers
 {
@@ -38,16 +39,18 @@ namespace ProductivityAPI.Controllers
                 _Db.Weights.Add(w);
                 _Db.SaveChanges();
                 return w.UserId;
-
             }
             return 0;
         }
 
-        //public Weight[] GetWeight()
-        //{
-        //    Weight[] weights = _Db.Weights.Where(x => x.Id == 1).ToArray();
-        //    return weights;
-        //}
+        [HttpDelete]
+        public HttpResponseMessage DeleteWeight(int id)
+        {
+            var weight = _Db.Weights.OrderBy(w => w.WeightId).LastOrDefault(u => u.UserId == id);
+            _Db.Weights.Remove(weight);
+            _Db.SaveChanges();
 
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
 }
