@@ -71,5 +71,24 @@ namespace ProductivityAPI.Controllers
             }
             return 0;
         }
+
+        [HttpDelete]
+        public int DeleteMedication(int userId, int medicationId)
+        {
+            // Find the medication with UserId and MedicationId.
+            Medications medDelete = _Db.Medications
+            .Where(x => x.UserId == userId && x.MedicationId == medicationId)
+            .FirstOrDefault();
+
+            if (medDelete == null)
+            {
+                return 0;
+            }
+
+            _Db.Medications.Remove(medDelete);
+            _Db.SaveChanges();
+            return userId;
+
+        }
     }
 }
