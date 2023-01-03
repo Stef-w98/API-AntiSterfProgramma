@@ -45,15 +45,31 @@ namespace ProductivityAPI.Controllers
             return 0;
         }
 
-        //[HttpDelete]
-        //public HttpResponseMessage DeleteTemps(int id) 
-        //{
-        //    var temps = _Db.Temperatures.OrderBy(t => t.TemperatureId).LastOrDefault(u => u.UserId == id);
-        //    _Db.Temperatures.Remove(temps);            
-        //    _Db.SaveChanges();
+        [HttpPut]
+        public int UpdateMedication(Object MedData)
+        {
+            if (MedData != null)
+            {
+                JsonElement element = (JsonElement)MedData;
+                Medications m = JsonConvert.DeserializeObject<Medications>(element.GetRawText());
 
-        //    return new HttpResponseMessage(HttpStatusCode.OK);
-        //}
+                // Find the medication with UserId and MedicationId.
+                Medications existingMed = _Db.Medications
+                    .Where(x => x.UserId == m.UserId && x.MedicationId == m.MedicationId)
+                    .FirstOrDefault();
 
+                if (existingMed == null)
+                {
+                    return 0;
+                }
+
+                // Update properties.
+                existingMed.MedicationName = m.MedicationName;
+                existingMed.MedicationUse = m.MedicationUse;
+                _Db.SaveChanges();
+                return m.UserId;
+            }
+            return 0;
+        }
     }
 }
